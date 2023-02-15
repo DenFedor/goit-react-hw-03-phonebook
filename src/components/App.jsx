@@ -10,6 +10,18 @@ class App extends React.Component {
     filter: '',
   };
 
+  componentDidMount() {
+    if (localStorage.getItem('contacts')) {
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem('contacts')),
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
+
   formSubmitHandler = data => {
     const { name, number } = data;
     const { contacts } = this.state;
@@ -28,15 +40,6 @@ class App extends React.Component {
           };
         });
   };
-componentDidMount() {
- if (localStorage.getItem('contacts')) {this.setState({
-    contacts: JSON.parse(localStorage.getItem('contacts'))
-  })}
-};
-
-componentDidUpdate() {
-  localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-}
   changeFilter = event => {
     this.setState({ filter: event.currentTarget.value });
   };
